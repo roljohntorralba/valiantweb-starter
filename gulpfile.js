@@ -28,5 +28,5 @@ function clean() {
 
 exports.build = series(clean, parallel(scripts, styles));
 exports.default = function () {
-  watch(["src/**/*.{js,css}"], { ignoreInitial: false }, series("build"));
+  watch(["src/**/*.{js,css}", "**/*.{html,php}", "!node_modules/**"], { ignoreInitial: false }, series("build"));
 };

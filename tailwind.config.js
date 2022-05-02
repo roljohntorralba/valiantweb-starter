@@ -1,7 +1,12 @@
 module.exports = {
-  content: ["**/*.php", "!node_modules/**"],
+  content: ["**/*.{html,php}", "!node_modules/**"],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 };

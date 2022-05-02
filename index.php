@@ -1,5 +1,18 @@
 <?php get_header() ?>
 
-  <h1 class="text-3xl font-bold underline">My site here</h1>
-  
+  <div>
+    <main class="prose mx-auto">
+      <?php
+      if (have_posts()) {
+        while (have_posts()) {
+          the_post();
+
+        }
+      }
+      ?>
+    </main>
+    <aside>
+      sidebar
+    </aside>
+  </div>
 <?php get_footer() ?>

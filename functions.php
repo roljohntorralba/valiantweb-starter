@@ -32,15 +32,24 @@ function vws_theme_support()
 	 * Adds `async` and `defer` support for scripts registered or enqueued
 	 * by the theme.
 	 */
-  $loader = new VWS_Script_Loader();
   add_filter('script_loader_tag', array($loader, 'filter_script_loader_tag'), 10, 2);
 }
 add_action('after_setup_theme', 'vws_theme_support');
 
 /**
- * Add async/defer script loader
+ * Add async/defer script loader class
  */
 require get_template_directory() . '/classes/class-vws-script-loader.php';
+
+/**
+ * Add twig template loader class
+ */
+require_once get_template_directory() . '/vendor/autoload.php';
+
+/**
+ * Add template tags
+ */
+require get_template_directory() . '/inc/template-tags.php';
 
 /**
  * Register and Enqueue styles and scripts
@@ -62,6 +71,69 @@ function vws_register_styles_scripts()
 }
 add_action('wp_enqueue_scripts', 'vws_register_styles_scripts');
 
-// Remove wp emoji styles
+/**
+ * Remove wp emoji styles
+ */
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
+
+/**
+ * Register navigation menus uses wp_nav_menu in four places.
+ */
+function vws_menus() {
+
+	$locations = array(
+		'primary'  => 'Desktop Menu',
+		'mobile'   => 'Mobile Menu',
+		'footer'   => 'Footer Menu',
+		'social'   => 'Social Menu',
+	);
+
+	register_nav_menus( $locations );
+}
+add_action( 'init', 'vws_menus' );
+
+/**
+ * Register widget areas.
+ */
+function vws_sidebar_registration() {
+
+	$sidebar_args = array(
+		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
+		'after_title'   => '</h2>',
+		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+		'after_widget'  => '</div></div>',
+	);
+	$footer_args = array(
+		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
+		'after_title'   => '</h2>',
+		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+		'after_widget'  => '</div></div>',
+	);
+
+	// Sidebar.
+	register_sidebar(
+		array_merge(
+			$sidebar_args,
+			array(
+				'name'        => 'Sidebar',
+				'id'          => 'sidebar-1',
+				'description' => 'Widgets in this area will be displayed in the sidebar.',
+			)
+		)
+	);
+
+	// Footer.
+	register_sidebar(
+		array_merge(
+			$footer_args,
+			array(
+				'name'        => 'Footer',
+				'id'          => 'footer-1',
+				'description' => 'Widgets in this area will be displayed in the footer.',
+			)
+		)
+	);
+
+}
+add_action( 'widgets_init', 'vws_sidebar_registration' );
