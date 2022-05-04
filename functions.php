@@ -32,6 +32,7 @@ function vws_theme_support()
 	 * Adds `async` and `defer` support for scripts registered or enqueued
 	 * by the theme.
 	 */
+  $loader = new VWS_Script_Loader();
   add_filter('script_loader_tag', array($loader, 'filter_script_loader_tag'), 10, 2);
 }
 add_action('after_setup_theme', 'vws_theme_support');
@@ -42,9 +43,9 @@ add_action('after_setup_theme', 'vws_theme_support');
 require get_template_directory() . '/classes/class-vws-script-loader.php';
 
 /**
- * Add twig template loader class
+ * Add custom nav walker class
  */
-require_once get_template_directory() . '/vendor/autoload.php';
+require get_template_directory() . '/classes/class-vws-nav-walker.php';
 
 /**
  * Add template tags
@@ -66,7 +67,7 @@ function vws_register_styles_scripts()
     wp_enqueue_script('comment-reply');
   }
 
-  wp_enqueue_script('vws-js', get_template_directory_uri() . '/dist/js/index.min.js', array(), $theme_version, false);
+  wp_enqueue_script('vws-js', get_template_directory_uri() . '/dist/js/global.min.js', array(), $theme_version, false);
   wp_script_add_data('vws-js', 'async', true);
 }
 add_action('wp_enqueue_scripts', 'vws_register_styles_scripts');

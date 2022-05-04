@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1, h2, h3, h5, h6 {
+    @apply font-serif font-bold text-slate-700
+  }
+}
+
+@layer components {
+  #site-header {
+    @apply sticky top-0;
+  }
+  .has-admin-bar #site-header {
+    @apply top-8;
+  }
+  .nav-links-container {
+    & .nav-links {
+      @apply flex;
+    }
+    & .page-numbers {
+      @apply inline-block py-1 px-2;
+    }
+    & a.page-numbers {
+      @apply hover:text-lime-500 hover:bg-slate-100;
+    }
+  }
+}

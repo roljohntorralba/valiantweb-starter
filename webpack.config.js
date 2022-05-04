@@ -3,8 +3,7 @@ const path = require("path");
 module.exports = {
   mode: "production",
   entry: {
-    index: "./src/js/index.js",
-    print: "./src/js/print.js",
+    global: "./src/js/global.js",
   },
   devtool: "source-map",
   output: {
