@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Custom walker class.
+ * Custom nvagiation walker class.
  */
 class VWS_Nav_Walker extends Walker_Nav_Menu
 {
@@ -25,7 +25,7 @@ class VWS_Nav_Walker extends Walker_Nav_Menu
   {
     // Restores the more descriptive, specific name for use within this method.
     $menu_item = $data_object;
-    $link_classes = 'inline-block px-4 py-2 text-slate-700 hover:text-lime-500 dark:text-slate-100 dark:hover:text-lime-300';
+    $link_classes = 'inline-block px-4 py-2 text-slate-700 hover:text-lime-500 hover:no-underline dark:text-slate-100 dark:hover:text-lime-300';
 
     if (isset($args->item_spacing) && 'discard' === $args->item_spacing) {
       $t = '';

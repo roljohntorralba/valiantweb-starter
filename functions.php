@@ -6,7 +6,7 @@
 function vws_theme_support()
 {
   add_theme_support('post-thumbnails');
-  set_post_thumbnail_size(1200, 9999);
+  set_post_thumbnail_size(1600, 9999);
 
   add_theme_support('title-tag');
 
@@ -46,6 +46,11 @@ require get_template_directory() . '/classes/class-vws-script-loader.php';
  * Add custom nav walker class
  */
 require get_template_directory() . '/classes/class-vws-nav-walker.php';
+
+/**
+ * Add custom comment walker class
+ */
+require get_template_directory() . '/classes/class-vws-comment-walker.php';
 
 /**
  * Add template tags
@@ -100,15 +105,15 @@ add_action( 'init', 'vws_menus' );
 function vws_sidebar_registration() {
 
 	$sidebar_args = array(
-		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
+		'before_title'  => '<h2 class="widget-title text-base mb-4">',
 		'after_title'   => '</h2>',
-		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+		'before_widget' => '<div class="widget %2$s mb-8"><div class="widget-content prose-sm prose-slate prose-p:text-slate-600 prose-a:text-slate-600 prose-p:leading-normal prose-ul:pl-0 prose-ol:pl-0 prose-li:pl-0 prose-li:my-0 prose-img:my-0">',
 		'after_widget'  => '</div></div>',
 	);
 	$footer_args = array(
-		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
+		'before_title'  => '<h2 class="widget-title text-base leading-tight text-slate-700 mb-4">',
 		'after_title'   => '</h2>',
-		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+		'before_widget' => '<div class="widget %2$s"><div class="widget-content prose prose-slate prose-p:text-slate-600 prose-a:text-slate-600 prose-p:leading-normal prose-ul:pl-0 prose-ol:pl-0 prose-li:pl-0 prose-li:my-0 prose-img:my-0">',
 		'after_widget'  => '</div></div>',
 	);
 

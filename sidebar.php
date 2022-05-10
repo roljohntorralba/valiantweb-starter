@@ -1,6 +1,8 @@
-<?php if(!is_singular()) : ?>
-  <aside class="prose w-80 shrink-0 ml-8" role="sidebar">
-    <p>sidebar</p>
-    <p>Another para</p>
-  </aside>
-<?php endif; ?>
+<?php
+if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+	return;
+}
+?>
+<aside class="w-80 shrink-0 ml-8" role="sidebar">
+  <?php dynamic_sidebar('sidebar-1') ?>
+</aside>

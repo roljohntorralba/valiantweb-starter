@@ -4,16 +4,26 @@
 
 @layer base {
   h1, h2, h3, h5, h6 {
-    @apply font-serif font-bold text-slate-700
+    @apply font-bold text-slate-700
+  }
+  a {
+    @apply text-primary-500;
+    &:hover {
+      @apply text-primary-600 underline;
+    }
   }
 }
 
 @layer components {
-  #site-header {
-    @apply sticky top-0;
+  .form-textarea,
+  .form-input {
+    @apply rounded-sm px-4 py-3 border-0 ring-1 ring-slate-300 shadow-lg shadow-slate-300/30 focus:border-0 focus:ring-primary-500 text-slate-600;
   }
-  .has-admin-bar #site-header {
-    @apply top-8;
+  .form-checkbox {
+    @apply text-primary-500 cursor-pointer w-6 h-6 rounded-sm border-slate-300 shadow shadow-slate-300/30;
+  }
+  .btn {
+    @apply transition-all px-6 py-3 font-semibold text-base text-white text-center bg-primary-500 rounded shadow-lg shadow-primary-600/30 cursor-pointer hover:bg-primary-600 hover:shadow-primary-400/30 hover:shadow-md;
   }
   .nav-links-container {
     & .nav-links {
@@ -21,9 +31,12 @@
     }
     & .page-numbers {
       @apply inline-block py-1 px-2;
+      &.current {
+        @apply text-slate-400 bg-slate-200 rounded cursor-not-allowed;
+      }
     }
     & a.page-numbers {
-      @apply hover:text-lime-500 hover:bg-slate-100;
+      @apply text-slate-500 hover:no-underline hover:bg-slate-200 rounded;
     }
   }
 }

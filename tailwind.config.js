@@ -1,8 +1,17 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
-  darkMode: 'class',
+  darkMode: "class",
   content: ["**/*.{html,php}", "!node_modules/**"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: colors.lime,
+        secondary: colors.fuchsia,
+        tertiary: colors.sky,
+        neutral: colors.slate,
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),
