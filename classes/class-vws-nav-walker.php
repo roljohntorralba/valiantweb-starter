@@ -1,10 +1,56 @@
 <?php
 
+namespace ValiantWeb;
+
 /**
  * Custom nvagiation walker class.
  */
-class VWS_Nav_Walker extends Walker_Nav_Menu
+class Nav_Walker extends \Walker_Nav_Menu
 {
+  /**
+   * Starts the list before the elements are added.
+   *
+   * @since 3.0.0
+   *
+   * @see Walker::start_lvl()
+   *
+   * @param string   $output Used to append additional content (passed by reference).
+   * @param int      $depth  Depth of menu item. Used for padding.
+   * @param stdClass $args   An object of wp_nav_menu() arguments.
+   */
+  public function start_lvl(&$output, $depth = 0, $args = null)
+  {
+    if (isset($args->item_spacing) && 'discard' === $args->item_spacing) {
+      $t = '';
+      $n = '';
+    } else {
+      $t = "\t";
+      $n = "\n";
+    }
+    $indent = str_repeat($t, $depth);
+
+    // Default class.
+    $base_menu_class = 'lg:bg-neutral-100 lg:shadow-xl lg:shadow-neutral-300/30 lg:group-hover:block lg:hidden lg:absolute lg:top-full';
+    $right_align_class = $base_menu_class . ' lg:right-0';
+    $left_align_class = $base_menu_class . ' lg:left-0';
+    $center_align_class = $base_menu_class . ' lg:left-1/2 lg:-translate-x-1/2 z-20';
+    $classes = array('sub-menu', $right_align_class);
+
+    /**
+     * Filters the CSS class(es) applied to a menu list element.
+     *
+     * @since 4.8.0
+     *
+     * @param string[] $classes Array of the CSS classes that are applied to the menu `<ul>` element.
+     * @param stdClass $args    An object of `wp_nav_menu()` arguments.
+     * @param int      $depth   Depth of menu item. Used for padding.
+     */
+    $class_names = implode(' ', apply_filters('nav_menu_submenu_css_class', $classes, $args, $depth));
+    $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+
+    $output .= "{$n}{$indent}<ul$class_names>{$n}";
+  }
+
   /**
    * Starts the element output.
    *
@@ -25,7 +71,7 @@ class VWS_Nav_Walker extends Walker_Nav_Menu
   {
     // Restores the more descriptive, specific name for use within this method.
     $menu_item = $data_object;
-    $link_classes = 'inline-block px-4 py-2 text-slate-700 hover:text-lime-500 hover:no-underline dark:text-slate-100 dark:hover:text-lime-300';
+    $link_classes = 'inline-block px-4 py-6 text-slate-700 hover:text-neutral-600 hover:bg-neutral-200 hover:no-underline dark:text-slate-100 dark:hover:text-lime-300';
 
     if (isset($args->item_spacing) && 'discard' === $args->item_spacing) {
       $t = '';
@@ -38,6 +84,11 @@ class VWS_Nav_Walker extends Walker_Nav_Menu
 
     $classes   = empty($menu_item->classes) ? array() : (array) $menu_item->classes;
     $classes[] = 'menu-item-' . $menu_item->ID;
+
+    if(in_array('menu-item-has-children', $classes)) {
+      // If menu item is a parent.
+      $classes[] = 'group relative';
+    }
 
     /**
      * Filters the arguments for a single nav menu item.

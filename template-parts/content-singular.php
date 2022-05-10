@@ -2,7 +2,7 @@
   <header class="grid grid-cols-1 gap-4 mb-4 not-prose">
     <h1 class="text-4xl font-serif"><?php the_title() ?></h1>
     <?php if (function_exists('get_field')) : ?>
-      <div class="text-slate-500"><?php the_field('leading_text') ?></div>
+      <p class="text-neutral-600/70 leading-snug text-xl"><?php the_field('leading_text') ?></p>
     <?php endif; ?>
     <?php get_template_part('components/post-meta') ?>
   </header>

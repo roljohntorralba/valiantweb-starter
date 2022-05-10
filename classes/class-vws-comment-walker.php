@@ -1,9 +1,9 @@
 <?php
-
+namespace ValiantWeb;
 /**
  * Custom comment walker class.
  */
-class VWS_Comment_Walker extends Walker_Comment
+class Comment_Walker extends \Walker_Comment
 {
   /**
    * Starts the list before the elements are added.

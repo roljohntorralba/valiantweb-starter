@@ -38,18 +38,18 @@ function vws_get_menu_array($menu_location)
  * Shows a list of taxonomy
  */
 function vws_show_tax($labels = true, $links = true, $label = 'Posted in', $taxonomy = 'category', $style = 'default') {
-  $no_links_style = 'transition-colors flex py-1 px-1.5 mb-1 mr-1 rounded bg-slate-400 font-semibold text-xs text-white';
+  $no_links_style = 'transition-colors flex py-1 px-1.5 mb-1 mr-1 rounded bg-neutral-400 font-semibold text-xs text-white';
   switch ($style) {
     case 'tags':
-      $btn_style = 'transition-colors flex mb-1 mr-1 px-1.5 py-1 rounded bg-transparent font-semibold text-xs text-slate-500 hover:bg-primary-500 hover:text-white hover:no-underline';
+      $btn_style = 'transition-colors flex mb-1 mr-1 px-1.5 py-1 rounded bg-transparent font-semibold text-xs text-neutral-500 hover:bg-primary-500 hover:text-white hover:no-underline';
       break;
     default:
-      $btn_style = 'transition-colors flex mb-1 mr-1 py-1 px-2 rounded bg-slate-400 font-semibold text-xs text-white uppercase hover:bg-primary-500 hover:text-white hover:no-underline';
+      $btn_style = 'transition-colors flex mb-1 mr-1 py-1 px-2 rounded bg-neutral-400 font-semibold text-xs text-white uppercase hover:bg-primary-500 hover:text-white hover:no-underline';
       break;
   }
   $terms = get_the_terms(get_the_ID(), $taxonomy);
   if ($terms) {
-    printf('<div class="mb-2 text-sm text-slate-500 flex flex-wrap items-baseline">');
+    printf('<div class="mb-2 text-sm text-neutral-500 flex flex-wrap items-baseline">');
     if($labels) {
       printf('<span class="mr-1">%s:</span>', ucfirst(esc_html($label)));
     }

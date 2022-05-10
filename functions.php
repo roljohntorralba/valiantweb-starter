@@ -32,7 +32,7 @@ function vws_theme_support()
 	 * Adds `async` and `defer` support for scripts registered or enqueued
 	 * by the theme.
 	 */
-  $loader = new VWS_Script_Loader();
+  $loader = new \WP_Rig\Script_Loader();
   add_filter('script_loader_tag', array($loader, 'filter_script_loader_tag'), 10, 2);
 }
 add_action('after_setup_theme', 'vws_theme_support');
@@ -51,6 +51,11 @@ require get_template_directory() . '/classes/class-vws-nav-walker.php';
  * Add custom comment walker class
  */
 require get_template_directory() . '/classes/class-vws-comment-walker.php';
+
+/**
+ * Add breadcrumbs class
+ */
+require get_template_directory() . '/classes/class-vws-breadcrumbs.php';
 
 /**
  * Add template tags

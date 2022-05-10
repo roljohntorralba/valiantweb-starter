@@ -28,7 +28,7 @@ add_filter('get_comment_author_link', 'vws_add_comment_author_link_class');
         <ol class="list-none mb-8">
           <?php
           wp_list_comments(array(
-            'walker'      => new VWS_Comment_Walker(),
+            'walker'      => new \ValiantWeb\Comment_Walker(),
             'style'       => 'ol',
             'short_ping'  => true,
             'avatar_size' => 40,

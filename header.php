@@ -15,8 +15,8 @@
 <body <?php body_class('bg-slate-100 dark:bg-slate-900 dark:text-slate-100'); ?>>
   <?php wp_body_open(); ?>
 
-  <header id="site-header" class="bg-white/90 dark:bg-slate-900/80 backdrop-blur-md shadow-lg shadow-slate-300/10 z-10">
-    <div class="container py-4 mx-auto transition-all">
+  <header id="site-header" class="bg-white/90 dark:bg-slate-900/80 backdrop-blur-md shadow-lg shadow-slate-300/10 z-10 relative">
+    <div class="container mx-auto transition-all">
       <nav class="flex items-center justify-between">
         <a href="<?php echo esc_url(home_url('/')) ?>" class="text-xl font-extrabold p-1 inline-block text-slate-600 dark:text-slate-200"><?php bloginfo('name') ?></a>
         <ul class="flex items-center">
@@ -26,7 +26,7 @@
               'container'  => '',
               'items_wrap' => '%3$s',
               'theme_location' => 'primary',
-              'walker' => new VWS_Nav_Walker(),
+              'walker' => new \ValiantWeb\Nav_Walker(),
             )
           );
           ?>
@@ -40,3 +40,12 @@
       <?php echo get_the_post_thumbnail(null, 'post-thumbnail', ['class' => 'object-cover']) ?>
     </div>
   <?php endif; ?>
+
+  <?php
+  if(!is_front_page()) {
+    global $post;
+    $test = new \ValiantWeb\Breadcrumbs('rol');
+    $test->auto_generate($post->ID);
+    $test->display();
+  }  
+  ?>

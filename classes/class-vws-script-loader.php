@@ -1,4 +1,5 @@
 <?php
+namespace WP_Rig;
 /**
  * Javascript Loader Class
  *
@@ -9,11 +10,11 @@
  * @package WordPress
  */
 
-if ( ! class_exists( 'VWS_Script_Loader' ) ) {
+if ( ! class_exists( 'Script_Loader' ) ) {
 	/**
 	 * A class that provides a way to add `async` or `defer` attributes to scripts.
 	 */
-	class VWS_Script_Loader {
+	class Script_Loader {
 
 		/**
 		 * Adds async/defer attributes to enqueued / registered scripts.
