@@ -30,7 +30,7 @@ class Nav_Walker extends \Walker_Nav_Menu
     $indent = str_repeat($t, $depth);
 
     // Default class.
-    $base_menu_class = 'lg:bg-neutral-100 lg:shadow-xl lg:shadow-neutral-300/30 lg:group-hover:block lg:hidden lg:absolute lg:top-full';
+    $base_menu_class = 'lg:bg-neutral-300 lg:shadow-xl lg:shadow-neutral-300/30 lg:group-hover:block lg:hidden lg:absolute lg:top-full';
     $right_align_class = $base_menu_class . ' lg:right-0';
     $left_align_class = $base_menu_class . ' lg:left-0';
     $center_align_class = $base_menu_class . ' lg:left-1/2 lg:-translate-x-1/2 z-20';
@@ -71,7 +71,9 @@ class Nav_Walker extends \Walker_Nav_Menu
   {
     // Restores the more descriptive, specific name for use within this method.
     $menu_item = $data_object;
-    $link_classes = 'inline-block px-4 py-6 text-slate-700 hover:text-neutral-600 hover:bg-neutral-200 hover:no-underline dark:text-slate-100 dark:hover:text-lime-300';
+    $link_base_class = 'inline-block px-4 py-6 text-neutral-700 flex items-center';
+    $link_group_class = $link_base_class . ' group-hover:text-neutral-700 group-hover:bg-neutral-300 group-hover:no-underline';
+    $link_single_class = $link_base_class . ' hover:text-neutral-700 hover:bg-neutral-300 hover:no-underline';
 
     if (isset($args->item_spacing) && 'discard' === $args->item_spacing) {
       $t = '';
@@ -85,8 +87,10 @@ class Nav_Walker extends \Walker_Nav_Menu
     $classes   = empty($menu_item->classes) ? array() : (array) $menu_item->classes;
     $classes[] = 'menu-item-' . $menu_item->ID;
 
-    if(in_array('menu-item-has-children', $classes)) {
-      // If menu item is a parent.
+    // If menu item is a parent.
+    $is_parent = in_array('menu-item-has-children', $classes);
+
+    if ($is_parent) {
       $classes[] = 'group relative';
     }
 
@@ -141,7 +145,11 @@ class Nav_Walker extends \Walker_Nav_Menu
     }
     $atts['href']         = !empty($menu_item->url) ? $menu_item->url : '';
     $atts['aria-current'] = $menu_item->current ? 'page' : '';
-    $atts['class']        = $link_classes;
+    if($is_parent) {
+      $atts['class']        = $link_group_class;
+    } else {
+      $atts['class']        = $link_single_class;
+    }
 
     /**
      * Filters the HTML attributes applied to a menu item's anchor element.
@@ -191,6 +199,12 @@ class Nav_Walker extends \Walker_Nav_Menu
     $item_output  = $args->before;
     $item_output .= '<a' . $attributes . '>';
     $item_output .= $args->link_before . $title . $args->link_after;
+    if ($is_parent) {
+      // Add chevron down icon.
+      $item_output .= '<svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5 text-neutral-400 group-hover:text-neutral-500 hidden lg:block" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>';
+    }
     $item_output .= '</a>';
     $item_output .= $args->after;
 

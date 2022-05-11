@@ -38,29 +38,23 @@ function vws_theme_support()
 add_action('after_setup_theme', 'vws_theme_support');
 
 /**
- * Add async/defer script loader class
- */
-require get_template_directory() . '/classes/class-vws-script-loader.php';
-
-/**
- * Add custom nav walker class
- */
-require get_template_directory() . '/classes/class-vws-nav-walker.php';
-
-/**
- * Add custom comment walker class
- */
-require get_template_directory() . '/classes/class-vws-comment-walker.php';
-
-/**
- * Add breadcrumbs class
- */
-require get_template_directory() . '/classes/class-vws-breadcrumbs.php';
-
-/**
  * Add template tags
  */
 require get_template_directory() . '/inc/template-tags.php';
+
+/**
+ * Load the following classes:
+ *  - Composer autoload
+ *  - Async/defer script loader
+ *  - Custom nav walker
+ *  - Custom comment walker
+ *  - Breadcrumbs class
+ */
+require_once get_template_directory() . '/vendor/autoload.php';
+require get_template_directory() . '/classes/class-vws-script-loader.php';
+require get_template_directory() . '/classes/class-vws-nav-walker.php';
+require get_template_directory() . '/classes/class-vws-comment-walker.php';
+require get_template_directory() . '/classes/class-vws-breadcrumbs.php';
 
 /**
  * Register and Enqueue styles and scripts
@@ -112,13 +106,13 @@ function vws_sidebar_registration() {
 	$sidebar_args = array(
 		'before_title'  => '<h2 class="widget-title text-base mb-4">',
 		'after_title'   => '</h2>',
-		'before_widget' => '<div class="widget %2$s mb-8"><div class="widget-content prose-sm prose-slate prose-p:text-slate-600 prose-a:text-slate-600 prose-p:leading-normal prose-ul:pl-0 prose-ol:pl-0 prose-li:pl-0 prose-li:my-0 prose-img:my-0">',
+		'before_widget' => '<div class="widget %2$s mb-8"><div class="widget-content prose-sm prose-slate prose-p:text-slate-600 prose-a:text-slate-600 prose-p:leading-normal prose-ul:pl-0 prose-ol:pl-0 prose-li:pl-0 prose-li:my-2 prose-img:my-0">',
 		'after_widget'  => '</div></div>',
 	);
 	$footer_args = array(
 		'before_title'  => '<h2 class="widget-title text-base leading-tight text-slate-700 mb-4">',
 		'after_title'   => '</h2>',
-		'before_widget' => '<div class="widget %2$s"><div class="widget-content prose prose-slate prose-p:text-slate-600 prose-a:text-slate-600 prose-p:leading-normal prose-ul:pl-0 prose-ol:pl-0 prose-li:pl-0 prose-li:my-0 prose-img:my-0">',
+		'before_widget' => '<div class="widget %2$s"><div class="widget-content prose prose-slate prose-p:text-slate-600 prose-a:text-slate-600 prose-p:leading-normal prose-ul:pl-0 prose-ol:pl-0 prose-ul:leading-snug prose-ol:leading-snug prose-li:pl-0 prose-li:my-2 prose-img:my-0">',
 		'after_widget'  => '</div></div>',
 	);
 

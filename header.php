@@ -44,7 +44,7 @@
   <?php
   if(!is_front_page()) {
     global $post;
-    $test = new \ValiantWeb\Breadcrumbs('rol');
+    $test = new \ValiantWeb\Breadcrumbs();
     $test->auto_generate($post->ID);
     $test->display();
   }  
